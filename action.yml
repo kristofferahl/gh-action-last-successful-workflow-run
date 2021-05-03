@@ -1,0 +1,32 @@
+name: gh-action-last-successful-workflow-run
+description: Find the last successful workflow run
+inputs:
+  github-token:
+    description: The GITHUB_TOKEN secret for the current repository
+    required: true
+outputs:
+  run-number:
+    description: The workflow run number
+  head-branch:
+    description: The head branch
+  head-commit-id:
+    description: The head commit id
+  head-commit-tree-id:
+    description: The head commit tree id
+  head-commit-message:
+    description: The head commit message
+  head-commit-timestamp:
+    description: The head commit timestamp
+  head-commit-author-name:
+    description: The head commit author name
+  head-commit-author-email:
+    description: The head commit author email
+  head-commit-committer-name:
+    description: The head commit committer name
+  head-commit-committer-email:
+    description: The head commit committer email
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.github-token }}

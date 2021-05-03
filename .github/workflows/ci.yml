@@ -1,0 +1,41 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    steps:
+    - name: Find last successful workflow run
+      id: last_successful_workflow_run
+      uses: kristofferahl/gh-action-last-successful-workflow-run@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Print single output
+      run: |
+        echo "The head-commit-id was ${{ steps.last_successful_workflow_run.outputs.head-commit-id }}"
+    - name: Print all outputs
+      run: |
+        echo "All Outputs:"
+        echo "run-number: ${{ steps.last_successful_workflow_run.outputs.run-number }}"
+        echo "head-branch: ${{ steps.last_successful_workflow_run.outputs.head-branch }}"
+        echo "head-commit-id: ${{ steps.last_successful_workflow_run.outputs.head-commit-id }}"
+        echo "head-commit-tree-id: ${{ steps.last_successful_workflow_run.outputs.head-commit-tree-id }}"
+        echo "head-commit-message: ${{ steps.last_successful_workflow_run.outputs.head-commit-message }}"
+        echo "head-commit-timestamp: ${{ steps.last_successful_workflow_run.outputs.head-commit-timestamp }}"
+        echo "head-commit-author-name: ${{ steps.last_successful_workflow_run.outputs.head-commit-author-name }}"
+        echo "head-commit-author-email: ${{ steps.last_successful_workflow_run.outputs.head-commit-author-email }}"
+        echo "head-commit-committer-name: ${{ steps.last_successful_workflow_run.outputs.head-commit-committer-name }}"
+        echo "head-commit-committer-email: ${{ steps.last_successful_workflow_run.outputs.head-commit-committer-email }}"
