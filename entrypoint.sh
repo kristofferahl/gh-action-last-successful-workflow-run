@@ -21,7 +21,7 @@ main() {
     --header 'content-type: application/json')"
 
   echo "Finding last successful worflow run for branch \"${GITHUB_BRANCH_NAME:?}\""
-  last_successful_run="$(echo "${workflow_runs:-}" | jq -r -c '[ .workflow_runs[] | select(.head_branch == env.GITHUB_BRANCH_NAME and .status == "completed" and .conclusion == "success")] | first | { run_number, head_branch, status, conclusion, head_commit }')"
+  last_successful_run="$(echo "${workflow_runs:-}" | jq -r -c '[ .workflow_runs[] | select(.name == env.GITHUB_WORKFLOW and .head_branch == env.GITHUB_BRANCH_NAME and .status == "completed" and .conclusion == "success")] | first | { run_number, head_branch, status, conclusion, head_commit }')"
   echo "${last_successful_run:-}" | jq '.'
 
   if [[ ! -n "${last_successful_run:-}" ]]; then
