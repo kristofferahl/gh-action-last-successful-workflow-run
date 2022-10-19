@@ -51,16 +51,18 @@ main() {
   head_commit_committer_name="$(echo "${last_successful_run:-}" | jq -r '.head_commit.committer.name // empty')"
   head_commit_committer_email="$(echo "${last_successful_run:-}" | jq -r '.head_commit.committer.email // empty')"
 
-  echo "::set-output name=run-number::${run_number:-}"
-  echo "::set-output name=head-branch::${head_branch:-}"
-  echo "::set-output name=head-commit-id::${head_commit_id:-}"
-  echo "::set-output name=head-commit-tree-id::${head_commit_tree_id:-}"
-  echo "::set-output name=head-commit-message::${head_commit_message:-}"
-  echo "::set-output name=head-commit-timestamp::${head_commit_timestamp:-}"
-  echo "::set-output name=head-commit-author-name::${head_commit_author_name:-}"
-  echo "::set-output name=head-commit-author-email::${head_commit_author_email:-}"
-  echo "::set-output name=head-commit-committer-name::${head_commit_committer_name:-}"
-  echo "::set-output name=head-commit-committer-email::${head_commit_committer_email:-}"
+  {
+    echo "run-number=${run_number:-}"
+    echo "head-branch=${head_branch:-}"
+    echo "head-commit-id=${head_commit_id:-}"
+    echo "head-commit-tree-id=${head_commit_tree_id:-}"
+    echo "head-commit-message=${head_commit_message:-}"
+    echo "head-commit-timestamp=${head_commit_timestamp:-}"
+    echo "head-commit-author-name=${head_commit_author_name:-}"
+    echo "head-commit-author-email=${head_commit_author_email:-}"
+    echo "head-commit-committer-name=${head_commit_committer_name:-}"
+    echo "head-commit-committer-email=${head_commit_committer_email:-}"
+  } >>"${GITHUB_OUTPUT:?}"
 }
 
 main "$@"
