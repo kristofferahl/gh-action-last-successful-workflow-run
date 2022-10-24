@@ -59,7 +59,3 @@ uses: kristofferahl/gh-action-last-successful-workflow-run@v1
 with:
   github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
-
-## Possible issues
-
-- Multi line commit messages
