@@ -2,7 +2,8 @@ FROM alpine:3.11
 RUN apk update && apk add \
   bash \
   jq \
-  curl
+  curl \
+  util-linux
 RUN bash --version
 RUN jq --version
 RUN curl --version
